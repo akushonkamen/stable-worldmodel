@@ -16,14 +16,12 @@ def qpos_match_env():
 def test_qpos_match_reset_with_options_sets_target(qpos_match_env):
     target = np.array([0.3, -0.3])
     qpos_match_env.reset(options={'target_qpos': target})
-    np.testing.assert_allclose(
-        qpos_match_env.env.task.target_qpos, target
-    )
+    np.testing.assert_allclose(qpos_match_env.env.task.target_qpos, target)
 
 
 def test_qpos_match_plain_reset_clears_stale_target(qpos_match_env):
     target = np.array([0.3, -0.3])
-    obs, _ = qpos_match_env.reset(options={'target_qpos': target})
+    _obs, _ = qpos_match_env.reset(options={'target_qpos': target})
     assert qpos_match_env.env.task.target_qpos is not None
 
     # A plain reset (no options) must not keep the previous episode's goal,
